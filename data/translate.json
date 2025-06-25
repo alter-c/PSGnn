@@ -1,0 +1,59 @@
+{
+    "info": "地铁线路中英文对照表",
+    "city": [
+        {
+            "name": "北京市地铁",
+            "trans": {
+                "1号线八通线": "Line 1",
+                "2号线": "Line 2",
+                "3号线": "Line 3",
+                "4号线大兴线": "Line 4",
+                "5号线": "Line 5",
+                "6号线": "Line 6",
+                "7号线": "Line 7",
+                "8号线": "Line 8",
+                "9号线": "Line 9",
+                "10号线": "Line 10",
+                "11号线": "Line 11",
+                "12号线": "Line 12",
+                "13号线": "Line 13",
+                "14号线": "Line 14",
+                "15号线": "Line 15",
+                "16号线": "Line 16",
+                "17号线": "Line 17",
+                "17号线北段": "Line 17 North",
+                "19号线": "Line 19",
+                "房山线": "Fangshan Line",
+                "昌平线": "Changping Line",
+                "亦庄线": "Yizhuang Line",
+                "燕房线": "Yanfang Line",
+                "S1线": "Line S1",
+                "西郊线": "Xijiao Line",
+                "亦庄T1线": "Yizhuang T1 Line",
+                "首都机场线": "Capital Airport Express",
+                "大兴国际机场线": "Daxing Airport Express"
+            }
+        },
+        {
+            "name": "成都市地铁",
+            "trans": {
+                "1号线": "Line 1",
+                "2号线": "Line 2",
+                "3号线": "Line 3",
+                "4号线": "Line 4",
+                "5号线": "Line 5",
+                "6号线": "Line 6",
+                "7号线": "Line 7",
+                "8号线": "Line 8",
+                "9号线": "Line 9",
+                "10号线": "Line 10",
+                "17号线": "Line 17",
+                "18号线": "Line 18",
+                "19号线": "Line 19",
+                "27号线": "Line 27",
+                "S3(资阳)线": "Line S3",
+                "有轨电车蓉2号线": "Chengdu Tram Line 2"
+            }
+        }
+    ]
+}
