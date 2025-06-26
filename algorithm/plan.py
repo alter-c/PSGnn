@@ -180,12 +180,16 @@ class AStarPlanner:
         if isinstance(effect, Predicate):
             state.add(effect)
         elif isinstance(effect, And):
-            for effect in effect.operands:
-                if isinstance(effect, Predicate):
-                    self._apply_effect(state, effect)
+            for sub_effect in effect.operands:
+                if isinstance(sub_effect, Predicate):
+                    self._apply_effect(state, sub_effect)
         elif isinstance(effect, Not) and isinstance(effect.argument, Predicate):
             if effect.argument in state:
                 state.remove(effect.argument)
+        # elif isinstance(effect, Not) and isinstance(effect.argument, And):
+        #     for sub_effect in effect.argument.operands:
+        #         if isinstance(sub_effect, Predicate):
+        #             state.remove(sub_effect)
         
     
     def goal_test(self, state: Set[Predicate]) -> bool:
@@ -307,9 +311,11 @@ if __name__ == "__main__":
     problem = parser.parse_problem(problem_file)
 
 
-    # print("=====================domain=====================\n")
-    # for action in domain.actions:
-    #     print(vars(action))
+    print("=====================domain=====================\n")
+    print(domain.types)
+    for t in domain.types:
+        print(t)
+        print(domain.types[t])
 
     
     # print(domain.types)
