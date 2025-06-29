@@ -9,7 +9,7 @@ from pddl.logic.terms import Constant
 from pddl.custom_types import parse_name
 
 
-DEFAILT_TYPE = parse_name('default')
+DEFAULT_TYPE = parse_name('default')
 
 class ActionGrounder:
     def __init__(self, domain: Domain, problem: Problem):
@@ -26,7 +26,7 @@ class ActionGrounder:
         type_object_dict = {}
         for domain_type in self.domain.types:
             type_object_dict[domain_type] = set() # {'type1':{object1, object2}, ...} (集合用于在添加父类时去重)
-        type_object_dict[DEFAILT_TYPE] = set() # 添加默认类型
+        type_object_dict[DEFAULT_TYPE] = set() # 添加默认类型
 
         ### 首先需要处理类型继承, 因为某些动作参数指定的是父类, 而实例化时只定义子类
         type_ancestors = {} # 类型的父类字典: {子类:[父类列表]}
@@ -44,7 +44,7 @@ class ActionGrounder:
             object_type = object.type_tags
             # 对于未指定类型的物品, 设为默认类型
             if not object_type:
-                type_object_dict[DEFAILT_TYPE].add(object)
+                type_object_dict[DEFAULT_TYPE].add(object)
                 continue
             object_type = next(iter(object_type))   # object_type是一个frozenset, 而domain_type是name类, 需要从set中取出
             type_object_dict[object_type].add(object)
@@ -67,7 +67,7 @@ class ActionGrounder:
             type_lists = []
             for parameter in action.parameters:
                 if not parameter.type_tags: # 部分动作未指定变量类型, 添加默认参数类型
-                    type_lists.append(DEFAILT_TYPE)
+                    type_lists.append(DEFAULT_TYPE)
                     continue 
                 type_lists.append(next(iter(parameter.type_tags)))
             # 动作实例物品列表, 动作的每一个参数可以由哪些物品实例化
