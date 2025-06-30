@@ -2,7 +2,7 @@ import heapq
 from typing import Set, List, Dict
 
 from pddl.core import Domain, Problem
-from pddl.logic.predicates import Predicate
+from pddl.logic.base import Formula
 from pddl.action import Action
 
 from algorithm.state import State
@@ -13,8 +13,8 @@ class AStarState(State):
     """
     A*算法状态类, 扩展自State, 添加f_score,g_score,path属性
     """
-    def __init__(self, predicates: Set[Predicate], f_score: float = 0.0, g_score: float = 0.0, path: List[Action] = None):
-        super().__init__(predicates)
+    def __init__(self, formulas: Set[Formula], f_score: float = 0.0, g_score: float = 0.0, path: List[Action] = None):
+        super().__init__(formulas)
         self.f_score = f_score  # f(n) = g(n) + h(n)
         self.g_score = g_score  # g(n) 从初始点到当前节点的实际代价
         self.path = path  # 从起点到当前节点的动作序列
@@ -24,7 +24,7 @@ class AStarState(State):
     
     def copy(self):
         # 重写copy方法, 返回子类副本
-        return AStarState(self.predicates.copy())
+        return AStarState(self.formulas.copy())
     
     def update_score_path(self, f_score: float, g_score: float, path: List[Action]):
         """
@@ -54,7 +54,7 @@ class AStarPlanner:
         # 缓存所有可能动作
         self.action_list = self.ground_action()
 
-    def blind_heuristic(self, state: State) -> float:
+    def blind_heuristic(self, state: State, goal) -> float:
         """恒定为0的启发式函数 (盲目搜索)"""
         return 0.0
 
@@ -98,7 +98,7 @@ class AStarPlanner:
                         
                     new_path = state.path + [action]
                     new_g_score = state.g_score + 1  # 动作代价为1
-                    new_h_score = self.heuristic(new_state) # TODO 延迟启发式评估
+                    new_h_score = self.heuristic(new_state, self.problem.goal) # TODO 延迟启发式评估
                     new_f_score = new_g_score + new_h_score
 
                     new_state.update_score_path(new_f_score, new_g_score, new_path)

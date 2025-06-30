@@ -4,6 +4,8 @@ import argparse
 from utils.parser import PddlParser
 from algorithm.plan import AStarPlanner
 
+from algorithm.heuristic import simple_heuristic
+
 
 DATA_PATH = "data/validate"
 

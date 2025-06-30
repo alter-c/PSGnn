@@ -7,31 +7,31 @@ from pddl.logic.predicates import Predicate
 
 class State:
     """
-    PDDL状态类, 封装谓词集合及相关操作
+    PDDL状态类, 封装Formula集合及相关操作
     """
 
-    def __init__(self, predicates: Set[Predicate]):
-        self.predicates = set(predicates)
+    def __init__(self, formulas: Set[Formula]):
+        self.formulas = set(formulas)
 
-    def __contains__(self, item: Predicate) -> bool:
-        return item in self.predicates
+    def __contains__(self, item: Formula) -> bool:
+        return item in self.formulas
 
     def __eq__(self, other):
-        return isinstance(other, State) and self.predicates == other.predicates
+        return isinstance(other, State) and self.formulas == other.formulas
 
     def __str__(self):
         # 对谓词排序以确保一致
-        return " ".join(sorted(str(p) for p in self.predicates))
+        return " ".join(sorted(str(p) for p in self.formulas))
     
     def copy(self):
         # 创建状态的副本, 不改变原状态
-        return State(self.predicates.copy()) # 不用deepcopy, 性能较差
+        return State(self.formulas.copy()) # 不用deepcopy, 性能较差
 
-    def add(self, item: Predicate):
-        self.predicates.add(item)
+    def add(self, item: Formula):
+        self.formulas.add(item)
 
-    def remove(self, item: Predicate):
-        self.predicates.remove(item)
+    def remove(self, item: Formula):
+        self.formulas.remove(item)
 
     def satisfies(self, condition: Formula) -> bool:
         """
@@ -76,7 +76,7 @@ class State:
         # effect单个谓词
         if isinstance(effect, Predicate):
             # 先将该谓词的否定从状态中去除
-            if Not(effect) in self.predicates:
+            if Not(effect) in self.formulas:
                 self.remove(Not(effect))
             # 添加谓词影响
             self.add(effect)
@@ -89,7 +89,7 @@ class State:
         # effect否定逻辑, 且否定逻辑中确实为单个谓词
         elif isinstance(effect, Not) and isinstance(effect.argument, Predicate):
             # 先将该否定的谓词从状态中去除
-            if effect.argument in self.predicates:
+            if effect.argument in self.formulas:
                 self.remove(effect.argument)
             # 还需添加该否定影响
             self.add(effect)
