@@ -14,7 +14,7 @@ DEFAULT_TYPE = parse_name('default')
 class ActionGrounder:
     def __init__(self, domain: Domain, problem: Problem):
         """
-        生成所有的动作组合
+        根据object组合生成所有的action
         """
         self.domain = domain
         self.problem = problem

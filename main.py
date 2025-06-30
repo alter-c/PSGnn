@@ -21,13 +21,11 @@ def run(domain_file, problem_file):
     # 执行规划
     start = time.time()
     planner = AStarPlanner(domain, problem)
-    result = planner.plan()
+    plan = planner.plan()
     end = time.time()
     
     
-    if result:
-        plan, num = result
-        print(f"共搜索{num}个状态")
+    if plan is not []:
         print(f"总规划时间为{(end - start):.2f}s")
         print("找到如下规划方案:")
         for i, action in enumerate(plan, 1):
